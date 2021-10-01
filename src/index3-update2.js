@@ -1,15 +1,12 @@
 function isMatchSearch(searchTerm, liElement) {
-  if(searchTerm === '' || searchTerm === null) return true;
+  if(searchTerm === '') return true;
   
   const liTitleElement = liElement.querySelector('.todo__title');
 
   return liTitleElement.textContent.toLowerCase().includes(searchTerm.toLowerCase());
-
-
 }
 
 function isMatchSelected(filterTerm, liElement) {
-  if(filterTerm === null) filterTerm = 'All';
    return filterTerm === 'All' || (liElement.dataset.status === filterTerm);
 }
 
