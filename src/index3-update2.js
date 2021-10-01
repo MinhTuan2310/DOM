@@ -1,5 +1,6 @@
 function isMatchSearch(searchTerm, liElement) {
-
+  if(searchTerm === '') return true;
+  
   const liTitleElement = liElement.querySelector('.todo__title');
 
   return liTitleElement.textContent.toLowerCase().includes(searchTerm.toLowerCase());
