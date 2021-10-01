@@ -1,5 +1,5 @@
 function isMatchSearch(searchTerm, liElement) {
-  if(searchTerm === '') return true;
+  if(searchTerm === '' || searchTerm === null) return true;
   
   const liTitleElement = liElement.querySelector('.todo__title');
 
@@ -9,6 +9,7 @@ function isMatchSearch(searchTerm, liElement) {
 }
 
 function isMatchSelected(filterTerm, liElement) {
+  if(filterTerm === null) filterTerm = 'All';
    return filterTerm === 'All' || (liElement.dataset.status === filterTerm);
 }
 
