@@ -23,12 +23,21 @@
 
         <div class="input-group mb-3">
           <div class="input-group-prepend">
-            <span class="input-group-text" >Search</span>
+            <span class="input-group-text">Search</span>
           </div>
-          <input type="text" class="form-control" aria-label="Username" id="searchTerm">
+          <input
+            type="text"
+            class="form-control"
+            aria-label="Username"
+            id="searchTerm"
+          />
         </div>
 
-        <select class="form-select" aria-label="Default select example" id="selectList" >
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          id="selectList"
+        >
           <option selected value="All">All</option>
           <option value="pending">pending</option>
           <option value="complete">complete</option>
@@ -36,23 +45,28 @@
 
         <form class="my-4" id="todoForm">
           <div class="mb-3">
-            <label for="todoText" class="form-label">What do you need to do ?</label>
-            <input type="text" class="form-control" id="todoText">
+            <label for="todoText" class="form-label"
+              >What do you need to do ?</label
+            >
+            <input type="text" class="form-control" id="todoText" />
           </div>
 
           <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
             <label class="form-check-label" for="flexCheckDefault">
               Todo completed
             </label>
           </div>
-          
+
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 
-        <ul class="todo-list" id="todoList">
-
-        </ul>
+        <ul class="todo-list" id="todoList"></ul>
       </div>
     </section>
 
@@ -64,7 +78,6 @@
             <p class="todo__title mb-0">TODO TITLE</p>
 
             <div class="todo__actions">
-
               <button type="button" class="btn btn-primary edit">
                 Edit
               </button>
@@ -76,17 +89,15 @@
               <button type="button" class="btn btn-danger remove">
                 Remove
               </button>
-
-              
             </div>
           </div>
         </div>
       </li>
     </template>
 
-    <script src="src/index3-update2.js"></script>
-    <script src="src/filterTodo.js"></script>
-    
+    <!-- <script src="src/index3-update2.js"></script>
+    <script src="src/filterTodo.js"></script> -->
+    <script src="src/index.js"></script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
