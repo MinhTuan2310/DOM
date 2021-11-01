@@ -1,6 +1,7 @@
 function getTodoList() {
   try {
     const todoList = localStorage.getItem("todo_list") || [];
+    if(todoList.length === 0) return [];
 
     return JSON.parse(todoList);
   } catch (error) {
@@ -247,7 +248,6 @@ function handleFilterChange(filterName, filterValue) {
     url.searchParams.set('search', '')
     url.searchParams.set('select', 'All')
     history.pushState({}, '', url)
-
   }
 
   const todoList = getTodoList();
