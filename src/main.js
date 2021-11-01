@@ -1,7 +1,7 @@
 function getTodoList() {
   try {
     const todoList = localStorage.getItem("todo_list") || [];
-    if(todoList.length === 0) return [];
+    if (todoList.length === 0) return [];
 
     return JSON.parse(todoList);
   } catch (error) {
@@ -78,6 +78,11 @@ function createTodo(todo) {
     stateButton.textContent = stateButtonText;
     stateButton.classList.remove("btn-dark", "btn-success");
     stateButton.classList.add(stateButtonBg);
+
+    const BgTodoClass =
+      currentStatus === "pending" ? "alert-secondary" : "alert-success";
+    divElement.classList.remove("alert-secondary", "alert-success");
+    divElement.classList.add(BgTodoClass);
   });
   // edit button
   const editButton = liElementTodo.querySelector(".edit");
@@ -243,11 +248,11 @@ function handleFilterChange(filterName, filterValue) {
     selectInput.value = queryParams.get("select");
   }
 
-  if(!window.location.search) {
-    const url = new URL(window.location)
-    url.searchParams.set('search', '')
-    url.searchParams.set('select', 'All')
-    history.pushState({}, '', url)
+  if (!window.location.search) {
+    const url = new URL(window.location);
+    url.searchParams.set("search", "");
+    url.searchParams.set("select", "All");
+    history.pushState({}, "", url);
   }
 
   const todoList = getTodoList();
