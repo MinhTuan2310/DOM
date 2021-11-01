@@ -106,6 +106,8 @@ function populateTodoForm(todo) {
   inputForm.value = todo.title;
   // set mode edit for handleSubmitForm
   form.dataset.id = todo.id;
+  // focus to input
+  inputForm.focus()
 }
 
 function renderTodoList(ulElementId, todoList) {
@@ -148,6 +150,8 @@ function handleSubmitForm(e) {
     renderTodoList("todoList", newTodoList);
   } else {
     // add new todo into localStorage
+    if(inputForm.value.trim().length === 0) return;
+    
     const newTodo = {
       id: Date.now(),
       title: inputForm.value,
