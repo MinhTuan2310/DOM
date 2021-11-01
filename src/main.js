@@ -183,10 +183,27 @@ function initSelect() {
   selectTerm.addEventListener("change", () => {
     handleFilterChange("select", selectTerm.value);
   });
+}
+function isMatchSearch(filterValue, liElement) {
+  if (filterValue.length === 0) return true;
 
-  selectTerm.addEventListener("input", (e) => {
-    handleFilterChange("select", selectTerm.value);
-  });
+  const titleTodoElement = liElement.querySelector(".todo__title");
+  return titleTodoElement.textContent
+    .toLowerCase()
+    .includes(filterValue.toLowerCase());
+}
+
+function isMatchSelect(filterValue, liElement) {
+  if (filterValue === "All") return true;
+
+  return liElement.dataset.status === filterValue;
+}
+
+function isMatch(params, liElement) {
+  return (
+    isMatchSearch(params.get("search"), liElement) &&
+    isMatchSelect(params.get("select"), liElement)
+  );
 }
 
 function handleFilterChange(filterName, filterValue) {
@@ -196,25 +213,16 @@ function handleFilterChange(filterName, filterValue) {
   history.pushState({}, "", url);
 
   // re-render DOM
-  const ulTodoList = document.getElementById('todoList')
-  if(!ulTodoList) return;
+  const ulTodoList = document.getElementById("todoList");
+  if (!ulTodoList) return;
 
-  const liTodoElementList = ulTodoList.querySelectorAll('li');
-  if(!liTodoElementList) return;
+  const liTodoElementList = ulTodoList.querySelectorAll("li");
+  if (!liTodoElementList) return;
 
-  liTodoElementList.forEach(liTodoElement => {
-    liTodoElement.hidden = true;
-  })
-
-  liTodoElementList.forEach(liTodoElement => {
-    // if(liTodoElement.querySelector('.todo__title').textContent.includes(url.searchParams.get('search'))) {
-    //   liTodoElement.hidden = false;
-    // }
-
-    if(((liTodoElement.querySelector('.todo__title').textContent.toLowerCase() || []).includes(url.searchParams.get('search').toLowerCase())) && (url.searchParams.get('select') === 'All' || liTodoElement.dataset.status === url.searchParams.get('select'))) {
-      liTodoElement.hidden = false;
-    } 
-  })
+  liTodoElementList.forEach((liTodoElement) => {
+    const needToShow = isMatch(url.searchParams, liTodoElement);
+    liTodoElement.hidden = !needToShow;
+  });
 }
 
 (() => {
@@ -222,34 +230,26 @@ function handleFilterChange(filterName, filterValue) {
   initSearch();
   initSelect();
 
-  const todoList = getTodoList();
-  renderTodoList("todoList", todoList);
-
   const queryParams = new URLSearchParams(window.location.search);
   const searchInput = document.getElementById("searchTerm");
   const selectInput = document.getElementById("selectList");
 
-  if(queryParams.get('search')) {
-    searchInput.value = queryParams.get('search')
+  if (queryParams.get("search")) {
+    searchInput.value = queryParams.get("search");
   }
 
-  if(queryParams.get('select')) {
-    selectInput.value = queryParams.get('select')
+  if (queryParams.get("select")) {
+    selectInput.value = queryParams.get("select");
   }
 
-  const ulTodoList = document.getElementById('todoList')
-  if(!ulTodoList) return;
+  if(!window.location.search) {
+    const url = new URL(window.location)
+    url.searchParams.set('search', '')
+    url.searchParams.set('select', 'All')
+    history.pushState({}, '', url)
 
-  const liTodoElementList = ulTodoList.querySelectorAll('li');
-  if(!liTodoElementList) return;
+  }
 
-  liTodoElementList.forEach(liTodoElement => {
-    liTodoElement.hidden = true;
-  })
-
-  liTodoElementList.forEach(liTodoElement => {
-    if(((liTodoElement.querySelector('.todo__title').textContent.toLowerCase() || []).includes(queryParams.get('search').toLowerCase())) && (queryParams.get('select') === 'All' || liTodoElement.dataset.status === queryParams.get('select'))) {
-      liTodoElement.hidden = false;
-    } 
-  })
+  const todoList = getTodoList();
+  renderTodoList("todoList", todoList);
 })();
